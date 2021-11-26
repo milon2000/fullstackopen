@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Filter from "./components/Filter";
-import PersonForm from "./components/PersonForm";
-import Persons from "./components/Persons";
-import Notification from "./components/Notification";
-import ErrorMessage from "./components/ErrorMessage";
-import personService from "./services/persons";
+import React, { useEffect, useState } from "react"
+import Filter from "./components/Filter"
+import PersonForm from "./components/PersonForm"
+import Persons from "./components/Persons"
+import Notification from "./components/Notification"
+import ErrorMessage from "./components/ErrorMessage"
+import personService from "./services/persons"
 
 const App = () => {
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [message, setMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState("")
+  const [newNumber, setNewNumber] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -21,14 +21,14 @@ const App = () => {
   }, []);
 
   const handleSearhChange = (event) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value)
   };
   const personsToShow = persons.filter((person) =>
     person.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const addPerson = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const personObject = {
       name: newName,
@@ -36,8 +36,8 @@ const App = () => {
       id: Math.floor(Math.random() * 1000),
     };
 
-    const person = persons.find((person) => person.name === newName);
-    const changedPerson = { ...person, number: newNumber };
+    const person = persons.find((person) => person.name === newName)
+    const changedPerson = { ...person, number: newNumber }
     if (person) {
       if (
         window.confirm(
@@ -51,7 +51,7 @@ const App = () => {
               persons.map((p) => (p.name === newName ? returnedPerson : p))
             );
 
-            setMessage(`Updated ${person.name}`);
+            setMessage(`Updated ${person.name}`)
             setTimeout(() => {
               setMessage(null);
             }, 5000);
@@ -60,27 +60,38 @@ const App = () => {
             setErrorMessage(
               ` Information of '${person.name}' has already been removed from server`
             );
-            setPersons(persons.filter((p) => p.name !== person.name));
+            setPersons(persons.filter((p) => p.name !== person.name))
             setTimeout(() => {
-              setErrorMessage(null);
-            }, 5000);
+              setErrorMessage(null)
+            }, 5000)
 
             setNewName("");
-            setNewNumber("");
+            setNewNumber("")
           });
       }
     } else {
-      personService.create(personObject).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setMessage(`Added ${personObject.name}`);
+      personService
+      .create(personObject)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson))
+        setMessage(`Added ${personObject.name}`)
         setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-        setNewName("");
-        setNewNumber("");
-      });
+          setMessage(null)
+        }, 5000)
+        setNewName("")
+        setNewNumber("")
+      })
+      .catch(error => {
+        setErrorMessage(error.response.data)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setNewName("")
+        setNewNumber("")
+      })
+  
     }
-  };
+  }
 
   const deletePerson = (id) => {
     const person = persons.find((p) => p.id === id);
