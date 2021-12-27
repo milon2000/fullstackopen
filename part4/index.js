@@ -1,11 +1,15 @@
-//const http = require('http')
-require('dotenv'.config())
+require('dotenv').config()
 const express = require('express')
+
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
+const Blog = require('./models/blog')
+//const mongoose = require('mongoose')
 
-const blogSchema = new mongoose.Schema({
+
+/*const MONGODB_URI = "mongodb+srv://fullstack:RaVS4uw5ejRppta@cluster0.ccyk7.mongodb.net/bloglist-app?retryWrites=true&w=majority"*/
+
+/*const blogSchema = new mongoose.Schema({
     title: String,
     author: String,
     url: String,
@@ -14,8 +18,7 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-
-mongoose.connect(mongoUrl)
+mongoose.connect(process.env.MONGODB_URI)*/
 
 app.use(cors())
 app.use(express.json())
