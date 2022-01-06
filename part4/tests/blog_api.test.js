@@ -29,13 +29,27 @@ beforeEach(async () => {
     await blogObject.save()
 })
 
-test('there are two blogs in the database', async () => {
-    const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(initialBlogs.length)
+describe('blog api tests', () => {
+    test('there are two blogs in the database', async () => {
+        const response = await api.get('/api/blogs')
+        expect(response.body).toHaveLength(initialBlogs.length)
+    })
+
+    test('blogs are in the JSON format', async () => {
+        await api
+            .get('/api/blogs')
+            .expect('Content-Type', /application\/json/)
+    })
+
+    test('the unique identifier property of the blog posts is named id', async () => {
+        const response = await api.get('/api/blogs')
+        const contents = response.body.map(blog => blog.id)
+        expect(contents).toBeDefined()
+    })
 })
 
-test('blogs are in the JSON format', async () => {
-    await api
-        .get('/api/blogs')
-        .expect('Content-Type', /application\/json/)
+
+
+afterAll(() => {
+    mongoose.connection.close()
 })
