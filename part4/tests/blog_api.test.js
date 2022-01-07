@@ -46,9 +46,27 @@ describe('blog api tests', () => {
         const contents = response.body.map(blog => blog.id)
         expect(contents).toBeDefined()
     })
-})
 
+    test('a valid blog can be added', async () => {
+        const newBlog = {
+            title: 'Blog3',
+            author: 'Author3',
+            url: 'www.url3.com',
+            likes: 2
+        }
 
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const response = await api.get('/api/blogs')
+        expect(response.body).toHaveLength(initialBlogs.length + 1)
+
+    })
+
+}, 200000)
 
 afterAll(() => {
     mongoose.connection.close()
