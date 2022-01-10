@@ -1,4 +1,7 @@
 const {
+    response
+} = require('express')
+const {
     TestWatcher
 } = require('jest')
 const mongoose = require('mongoose')
@@ -64,6 +67,25 @@ describe('blog api tests', () => {
         const response = await api.get('/api/blogs')
         expect(response.body).toHaveLength(initialBlogs.length + 1)
 
+    })
+
+    test('if the likes property is missing from the request, it will default to the value 0', async () => {
+        const newBlog = {
+            title: 'Blog4',
+            author: 'Author4',
+            url: 'www.url4.com',
+            likes: 0
+        }
+        const response =
+            await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const isItDefinied = response.body.likes !== undefined ? 0 : undefined
+        console.log(isItDefinied)
+        expect(isItDefinied).toEqual(0)
     })
 
 }, 200000)
