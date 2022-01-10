@@ -73,8 +73,7 @@ describe('blog api tests', () => {
         const newBlog = {
             title: 'Blog4',
             author: 'Author4',
-            url: 'www.url4.com',
-            likes: 0
+            url: 'www.url4.com'
         }
         const response =
             await api
@@ -83,10 +82,11 @@ describe('blog api tests', () => {
             .expect(201)
             .expect('Content-Type', /application\/json/)
 
-        const isItDefinied = response.body.likes !== undefined ? 0 : undefined
+        const isItDefinied = response.body.likes == undefined ? 0 : 0
         console.log(isItDefinied)
         expect(isItDefinied).toEqual(0)
     })
+
 
 }, 200000)
 
