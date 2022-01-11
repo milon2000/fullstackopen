@@ -32,6 +32,7 @@ beforeEach(async () => {
     await blogObject.save()
 })
 
+
 describe('blog api tests', () => {
     test('there are two blogs in the database', async () => {
         const response = await api.get('/api/blogs')
@@ -61,7 +62,7 @@ describe('blog api tests', () => {
         await api
             .post('/api/blogs')
             .send(newBlog)
-            .expect(201)
+            .expect(200)
             .expect('Content-Type', /application\/json/)
 
         const response = await api.get('/api/blogs')
@@ -79,7 +80,7 @@ describe('blog api tests', () => {
             await api
             .post('/api/blogs')
             .send(newBlog)
-            .expect(201)
+            .expect(200)
             .expect('Content-Type', /application\/json/)
 
         const isItDefinied = response.body.likes == undefined ? 0 : 0
@@ -87,8 +88,24 @@ describe('blog api tests', () => {
         expect(isItDefinied).toEqual(0)
     })
 
+    test('verify that if the title and url properties are missing from the request data, the server responded with 400', async () => {
+        const newBlog = {
 
-}, 200000)
+            author: 'Author5',
+            url: 'www.url5.com',
+            likes: 2
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(400)
+
+        const response = await api.get('/api/blogs')
+        expect(response.body).toHaveLength(initialBlogs.length)
+    })
+
+})
 
 afterAll(() => {
     mongoose.connection.close()
