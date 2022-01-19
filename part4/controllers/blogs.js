@@ -23,7 +23,7 @@ blogsRouter.get('/:id', async (request, response) => {
 })
 
 
-blogRouter.put('/:id', async (request, response) => {
+blogsRouter.put('/:id', async (request, response) => {
     const body = request.body
 
     const newBlog = {
