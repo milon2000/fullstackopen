@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "gfhfbhrfffffff",
-    "author": "autor",
-    "url": "madebymila.net",
-    "likes": 66977777777777
+    "title": "title65",
+    "author": "autor65",
+    "url": "madebymila.net.65",
+    "likes": 12,
+    "userId": "61ea716cb7093c05a417f084"
 }
