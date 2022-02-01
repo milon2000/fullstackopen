@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
+import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [errorMessage, setErrorMessage] = useState(null)
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('root')
+  const [password, setPassword] = useState('123456')
 
 
   useEffect(() => {
@@ -15,34 +19,38 @@ const App = () => {
     )  
   }, [])
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
-    console.log('logging in with', username, password)
+    
+    try {
+      const user = await loginService.login({
+        username, password
+      })
+      setUsername(user)
+      setUsername('')
+      setPassword('')
+    } catch (exception) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
   }
+
+  const loginForm = () => (
+    <LoginForm username = {username}
+    password={password}
+    handleUsernameChange={({target}) => setUsername(target.value)}
+    handlePasswordChange={({target}) => setPassword(target.value)}
+    handleSubmit={handleLogin}/>
+  )
+    
+  
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-            <input 
-            type = "text"
-            value = {username}
-            name = "Username"
-            onchange = {({target}) => setUsername(target.value)}>
-            </input>  
-        </div>
-        <div>
-          password
-            <input
-            type = "text"
-            value = "password"
-            name = "Password"
-            onchange = {({target}) => setPassword(target.value)}
-            ></input>
-        </div> 
-        <button type = "submit">login</button>
-      </form>
+      <Notification message={errorMessage}/>
+      {loginForm()}
       <h2>blogs</h2>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
