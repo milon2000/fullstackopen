@@ -8,9 +8,10 @@ import loginService from './services/login'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
-
+  
   const [username, setUsername] = useState('root')
   const [password, setPassword] = useState('123456')
+  const [user, setUser] = useState(null)
 
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const App = () => {
       const user = await loginService.login({
         username, password
       })
-      setUsername(user)
+      setUser(user)
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -45,16 +46,18 @@ const App = () => {
     handleSubmit={handleLogin}/>
   )
     
-  
-
   return (
     <div>
       <Notification message={errorMessage}/>
-      {loginForm()}
+      {user === null ?
+      loginForm() :
+      <div>
       <h2>blogs</h2>
+      <p>{user.name} logged in</p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+      </div>}
     </div>
   )
 }
