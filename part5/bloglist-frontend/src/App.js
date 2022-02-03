@@ -10,7 +10,6 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
-  const [newBlog, setNewBlog] = useState('')
   
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -69,7 +68,9 @@ const App = () => {
       .create(blogObject)
         .then(returnedBlog => {
           setBlogs(blogs.concat(returnedBlog))
-          setNewBlog('')
+          setNewTitle('')
+          setNewAuthor('')
+          setNewUrl('')
         })
   }
   const loginForm = () => (
