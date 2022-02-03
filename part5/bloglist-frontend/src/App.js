@@ -35,6 +35,7 @@ const App = () => {
     }
   }, [])
 
+
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -59,6 +60,14 @@ const App = () => {
     }
   }
 
+  const handleLogout = (event) => {
+    event.preventDefault()
+    console.log('wylogowany')
+    window.localStorage.removeItem('loggedBlogappUser')
+    setUser(null)
+    //window.localStorage.clear()
+  }
+
   const addBlog = (event) => {
     event.preventDefault()
     const blogObject = {
@@ -81,7 +90,8 @@ const App = () => {
     password={password}
     handleUsernameChange={({target}) => setUsername(target.value)}
     handlePasswordChange={({target}) => setPassword(target.value)}
-    handleSubmit={handleLogin}/>
+    handleSubmit={handleLogin}
+  />
   )
 
     
@@ -93,6 +103,7 @@ const App = () => {
       <div>
         <h2>blogs</h2>
         <p>{user.name} logged in</p>
+        <button onClick = {handleLogout}>logout</button>
         {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />
         )}
