@@ -52,8 +52,12 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      setErrorMessage('You are logged in')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setErrorMessage('Wrong username or password')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -68,22 +72,36 @@ const App = () => {
     //window.localStorage.clear()
   }
 
-  const addBlog = (event) => {
+  const addBlog = async (event) => {
     event.preventDefault()
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl
-    }
 
-    blogService
-      .create(blogObject)
-        .then(returnedBlog => {
-          setBlogs(blogs.concat(returnedBlog))
-          setNewTitle('')
-          setNewAuthor('')
-          setNewUrl('')
-        })
+    try {
+      const blogObject = {
+        title: newTitle,
+        author: newAuthor,
+        url: newUrl
+      }
+  
+      blogService
+        .create(blogObject)
+          .then(returnedBlog => {
+            setBlogs(blogs.concat(returnedBlog))
+            setNewTitle('')
+            setNewAuthor('')
+            setNewUrl('')
+            setErrorMessage(`a new blog ${blogObject.title} by ${blogObject.author} added `)
+          })
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+      
+    } catch (exception) {
+      setErrorMessage(' something went wrong')
+      setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+    }
+    
   }
   const loginForm = () => (
     <LoginForm username = {username}
