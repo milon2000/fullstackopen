@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -43,19 +44,6 @@ const App = () => {
     }
   }
 
-  const handleTitleChange = (event) => {
-    console.log(event.target.value)
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setNewUrl(event.target.value)
-  }
-
   const addBlog = (event) => {
     event.preventDefault()
     const blogObject = {
@@ -80,6 +68,7 @@ const App = () => {
     handlePasswordChange={({target}) => setPassword(target.value)}
     handleSubmit={handleLogin}/>
   )
+
     
   return (
     <div>
@@ -87,41 +76,21 @@ const App = () => {
       {user === null ?
       loginForm() :
       <div>
-      <h2>blogs</h2>
-      <p>{user.name} logged in</p>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+        <h2>blogs</h2>
+        <p>{user.name} logged in</p>
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+        )}
+        <BlogForm 
+          newTitle = {newTitle}
+          newAuthor = {newAuthor}
+          newUrl = {newUrl}
+          handleTitleChange={({target}) => setNewTitle(target.value)}
+          handleAuthorChange={({target}) => setNewAuthor(target.value)}
+          handleUrlChange={({target}) => setNewUrl(target.value)}
+          addBlog = {addBlog}
+        />
       </div>}
-      <div>
-        <h2>create new</h2>
-        <form onSubmit = {addBlog}>
-          <div>
-            title
-              <input 
-              type = "text" 
-              value = {newTitle} 
-              onChange = {handleTitleChange}></ input>
-          </div>
-          
-          <div>
-             author
-              <input 
-                type = "text" 
-                value = {newAuthor} 
-                onChange = {handleAuthorChange}></ input>
-          </div>
-
-          <div>
-             url
-              <input 
-                type = "text" 
-                value = {newUrl}
-                onChange = {handleUrlChange}></ input>
-          </div>
-            <button type = "submit">create</button>
-        </form>
-      </div>
     </div>
   )
 }
