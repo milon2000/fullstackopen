@@ -8,6 +8,7 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
@@ -17,6 +18,8 @@ const App = () => {
   const [username, setUsername] = useState('root')
   const [password, setPassword] = useState('123456')
   const [user, setUser] = useState(null)
+
+  const [formVisible, setFormVisible] = useState(false)
 
 
   useEffect(() => {
@@ -90,6 +93,7 @@ const App = () => {
             setNewAuthor('')
             setNewUrl('')
             setErrorMessage(`a new blog ${blogObject.title} by ${blogObject.author} added `)
+            setFormVisible(false)
           })
           setTimeout(() => {
             setErrorMessage(null)
@@ -103,15 +107,46 @@ const App = () => {
     }
     
   }
-  const loginForm = () => (
-    <LoginForm username = {username}
-    password={password}
-    handleUsernameChange={({target}) => setUsername(target.value)}
-    handlePasswordChange={({target}) => setPassword(target.value)}
-    handleSubmit={handleLogin}
-  />
-  )
+  const loginForm = () => {
+   
+    return (
+      <div>
+          <LoginForm username = {username}
+            password={password}
+            handleUsernameChange={({target}) => setUsername(target.value)}
+            handlePasswordChange={({target}) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
+      </div>
+      
+    )
+    }
+const blogForm = () => {
 
+  const hideWhenVisible = {display: formVisible ? 'none' : ''}
+  const showWhenVisible = {display: formVisible ? '' : 'none' }
+
+  return (
+    <div>
+      <div style = {hideWhenVisible}>
+        <button onClick = {() => setFormVisible(true)}>create new blog</button>
+      </div>
+      <div style = {showWhenVisible}>
+        <BlogForm 
+          newTitle = {newTitle}
+          newAuthor = {newAuthor}
+          newUrl = {newUrl}
+          handleTitleChange={({target}) => setNewTitle(target.value)}
+          handleAuthorChange={({target}) => setNewAuthor(target.value)}
+          handleUrlChange={({target}) => setNewUrl(target.value)}
+          addBlog = {addBlog}
+        />
+          <button onClick = {() => {setFormVisible(false)}}>cancel</button>
+      </div>
+      
+    </div>
+  )
+}
     
   return (
     <div>
@@ -125,15 +160,7 @@ const App = () => {
         {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />
         )}
-        <BlogForm 
-          newTitle = {newTitle}
-          newAuthor = {newAuthor}
-          newUrl = {newUrl}
-          handleTitleChange={({target}) => setNewTitle(target.value)}
-          handleAuthorChange={({target}) => setNewAuthor(target.value)}
-          handleUrlChange={({target}) => setNewUrl(target.value)}
-          addBlog = {addBlog}
-        />
+        {blogForm()}
       </div>}
     </div>
   )
