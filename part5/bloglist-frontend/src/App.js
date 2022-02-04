@@ -8,10 +8,6 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
   
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -75,38 +71,27 @@ const App = () => {
     //window.localStorage.clear()
   }
 
-  const addBlog = async (event) => {
-    event.preventDefault()
-
+  const addNewBlog = async (returnedBlog) => {
+    
     try {
-      const blogObject = {
-        title: newTitle,
-        author: newAuthor,
-        url: newUrl
-      }
-  
-      blogService
-        .create(blogObject)
-          .then(returnedBlog => {
-            setBlogs(blogs.concat(returnedBlog))
-            setNewTitle('')
-            setNewAuthor('')
-            setNewUrl('')
-            setErrorMessage(`a new blog ${blogObject.title} by ${blogObject.author} added `)
-            setFormVisible(false)
-          })
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
+      const createdBlog = await blogService
+        .create(returnedBlog)
+        setErrorMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added `)
+        setBlogs(blogs.concat(createdBlog))
+        setErrorMessage('') 
+        setFormVisible(false)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       
     } catch (exception) {
       setErrorMessage(' something went wrong')
       setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
-    }
-    
-  }
+    } 
+  } 
+
   const loginForm = () => {
    
     return (
@@ -133,13 +118,7 @@ const blogForm = () => {
       </div>
       <div style = {showWhenVisible}>
         <BlogForm 
-          newTitle = {newTitle}
-          newAuthor = {newAuthor}
-          newUrl = {newUrl}
-          handleTitleChange={({target}) => setNewTitle(target.value)}
-          handleAuthorChange={({target}) => setNewAuthor(target.value)}
-          handleUrlChange={({target}) => setNewUrl(target.value)}
-          addBlog = {addBlog}
+          addNewBlog = {addNewBlog}
         />
           <button onClick = {() => {setFormVisible(false)}}>cancel</button>
       </div>

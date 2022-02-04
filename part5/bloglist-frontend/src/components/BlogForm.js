@@ -1,6 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const BlogForm = ({newTitle, newAuthor, newUrl, handleTitleChange, handleAuthorChange, handleUrlChange, addBlog }) => {
+const BlogForm = ({addNewBlog}) => {
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
+  }
+  const handleAuthorChange = (event) => {
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    setNewUrl(event.target.value)
+  }
+
+  const addBlog = (event) => {
+    event.preventDefault()
+    addNewBlog({
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl
+    })
+    setNewTitle('')
+    setNewAuthor('')
+    setNewUrl('')
+  }
     return (
         <div>
             <h2>create new</h2>
