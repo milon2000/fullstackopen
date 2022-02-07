@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
@@ -15,7 +16,7 @@ const App = () => {
   const [password, setPassword] = useState('123456')
   const [user, setUser] = useState(null)
 
-  const [formVisible, setFormVisible] = useState(false)
+
 
 
   useEffect(() => {
@@ -79,7 +80,6 @@ const App = () => {
         setErrorMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added `)
         setBlogs(blogs.concat(createdBlog))
         setErrorMessage('') 
-        setFormVisible(false)
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
@@ -107,23 +107,12 @@ const App = () => {
     )
     }
 const blogForm = () => {
-
-  const hideWhenVisible = {display: formVisible ? 'none' : ''}
-  const showWhenVisible = {display: formVisible ? '' : 'none' }
-
   return (
-    <div>
-      <div style = {hideWhenVisible}>
-        <button onClick = {() => setFormVisible(true)}>create new blog</button>
-      </div>
-      <div style = {showWhenVisible}>
+      <Togglable buttonLabel="create new blog">
         <BlogForm 
           addNewBlog = {addNewBlog}
         />
-          <button onClick = {() => {setFormVisible(false)}}>cancel</button>
-      </div>
-      
-    </div>
+      </Togglable> 
   )
 }
     
