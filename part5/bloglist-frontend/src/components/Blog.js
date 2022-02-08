@@ -1,8 +1,38 @@
-import React from 'react'
-const Blog = ({blog}) => (
-  <div>
-    {blog.title} {blog.author} {blog.url}
-  </div>  
-)
+import React,  { useState } from 'react'
+
+const Blog = ({blog}) => {
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
+  }
+
+  const [showAll, setShowAll] = useState(false)
+
+  const hideWhenVisible = { display: showAll ? 'none' : '' }
+    const showWhenVisible = { display: showAll ? '' : 'none' }
+
+  return (
+    <div style = {blogStyle}>
+      <div style ={hideWhenVisible}>
+        <p>{blog.title}</p> 
+        <p>{blog.author}</p>
+        <button onClick ={() => setShowAll(true)}>show</button>
+      </div>
+      <div style ={showWhenVisible}>
+      <p>{blog.title}</p> 
+        <p>{blog.author}</p>
+        <p>{blog.url}</p> 
+        <p>{blog.likes}</p> 
+        <button onClick ={() => setShowAll(false)}>hide</button>
+      </div>
+    </div>  
+  )
+}
 
 export default Blog
+
+// klikniecie pokazuje nam url i lajki. 
