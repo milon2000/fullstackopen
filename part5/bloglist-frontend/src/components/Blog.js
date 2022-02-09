@@ -1,6 +1,6 @@
 import React,  { useState } from 'react'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, handleLikes}) => {
 
   const blogStyle = {
     paddingTop: 10,
@@ -9,6 +9,8 @@ const Blog = ({blog}) => {
     borderWidth: 1,
     marginBottom: 5
   }
+
+
 
   const [showAll, setShowAll] = useState(false)
 
@@ -26,7 +28,10 @@ const Blog = ({blog}) => {
       <p>{blog.title}</p> 
         <p>{blog.author}</p>
         <p>{blog.url}</p> 
+        <div>
         <p>{blog.likes}</p> 
+        <button onClick={handleLikes}>like</button>
+        </div>
         <button onClick ={() => setShowAll(false)}>hide</button>
       </div>
     </div>  
@@ -34,5 +39,3 @@ const Blog = ({blog}) => {
 }
 
 export default Blog
-
-// klikniecie pokazuje nam url i lajki. 

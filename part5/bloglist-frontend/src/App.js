@@ -93,6 +93,15 @@ const App = () => {
     } 
   } 
 
+  const handleLikes =(id) => {
+    const blog = blogs.find(n => n.id === id)
+    const changedBlog = { ...blog, likes: blog.likes + 1 }
+    blogService
+    .update(id, changedBlog)
+      .then(returnedBlog => {
+      setBlogs(blogs.map(note => note.id !== id ? note : returnedBlog))
+    })
+  }
   const loginForm = () => {
    
     return (
@@ -127,7 +136,7 @@ const blogForm = () => {
         <p>{user.name} logged in</p>
         <button onClick = {handleLogout}>logout</button>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} handleLikes={()=> handleLikes(blog.id)} />
         )}
         {blogForm()}
       </div>}

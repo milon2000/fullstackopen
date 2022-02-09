@@ -1,6 +1,9 @@
-PUT http://localhost:3003/api/blogs/61c9aef3bcb2624dcfd0a1a5
+PUT http://localhost:3003/api/blogs/620237765d99133b6406ad50
 Content-Type: application/json
 
 {   
-    "likes": 1
+    "author": "Author8",
+    "title": "Title8",
+    "url": "www.url8.com",
+    "likes": 13
 }

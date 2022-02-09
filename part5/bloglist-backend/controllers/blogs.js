@@ -39,6 +39,9 @@ blogsRouter.put('/:id', async (request, response) => {
     const body = request.body
 
     const newBlog = {
+        author: body.author,
+        title: body.title,
+        url: body.url,
         likes: body.likes
     }
 
@@ -64,6 +67,10 @@ blogsRouter.post('/', async (request, response) => {
 
     if (!body.title || !body.url) {
         return response.status(400).end()
+    }
+
+    if (!body.likes) {
+        body.likes = 0
     }
 
     const blog = new Blog({

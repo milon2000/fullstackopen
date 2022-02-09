@@ -3,8 +3,8 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxZTdmZGQyYzIzMDA0NGY4YjhlZWE0MCIsImlhdCI6MTY0MzIwOTMyMn0.WU-w9ARyMWVo93tNyAxEDO-HiURuKQX00hWR1oJMXt8
 
 {
-    "title" : "Title8",
-    "author": "Author8",
+    "title" : "Title9",
+    "author": "Author9",
     "url": "www.url8.com",
-    "likes": 6
+    "likes": 8
 }
