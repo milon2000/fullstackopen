@@ -93,7 +93,7 @@ const App = () => {
     } 
   } 
 
-  const handleLikes =(id) => {
+  const handleLikes = (id) => {
     const blog = blogs.find(b => b.id === id)
     const changedBlog = { ...blog, likes: blog.likes + 1 }
     blogService
@@ -101,6 +101,19 @@ const App = () => {
       .then(returnedBlog => {
       setBlogs(blogs.map(note => note.id !== id ? note : returnedBlog))
     })
+  }
+
+  const handleRemove = async (id) => {
+    console.log('blogi', blogs);
+    const blog = blogs.find(b => b.id === id)
+    if(window.confirm(`Remove ${blog.title} by ${blog.author}`)) {
+      console.log(blog.id);
+      await blogService
+      .deleteBlog(
+            blog.id
+          ) 
+      setBlogs(blogs.filter(blog => blog.id !== id ));
+        }  
   }
   const loginForm = () => {
    
@@ -136,9 +149,10 @@ const blogForm = () => {
         <p>{user.name} logged in</p>
         <button onClick = {handleLogout}>logout</button>
         {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog key={blog.id} blog={blog} handleLikes={()=> handleLikes(blog.id)} />
+          <Blog key={blog.id} blog={blog} handleLikes={()=> handleLikes(blog.id)} handleRemove={()=> handleRemove(blog.id)} />
         )}
         {blogForm()}
+        
       </div>}
     </div>
   )

@@ -1,6 +1,6 @@
 import React,  { useState } from 'react'
 
-const Blog = ({blog, handleLikes}) => {
+const Blog = ({blog, handleLikes, handleRemove}) => {
 
   const blogStyle = {
     paddingTop: 10,
@@ -15,7 +15,8 @@ const Blog = ({blog, handleLikes}) => {
   const [showAll, setShowAll] = useState(false)
 
   const hideWhenVisible = { display: showAll ? 'none' : '' }
-    const showWhenVisible = { display: showAll ? '' : 'none' }
+  const showWhenVisible = { display: showAll ? '' : 'none' }
+
 
   return (
     <div style = {blogStyle}>
@@ -33,6 +34,7 @@ const Blog = ({blog, handleLikes}) => {
         <button onClick={handleLikes}>like</button>
         </div>
         <button onClick ={() => setShowAll(false)}>hide</button>
+        <button onClick={handleRemove}>remove</button>
       </div>
     </div>  
   )
