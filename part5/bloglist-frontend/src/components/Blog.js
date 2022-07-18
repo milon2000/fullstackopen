@@ -21,13 +21,13 @@ const Blog = ({blog, handleLikes, handleRemove}) => {
   return (
     <div style = {blogStyle}>
       <div style ={hideWhenVisible}>
-        <p>{blog.title}</p> 
-        <p>{blog.author}</p>
+        <p className='blog-title'>{blog.title}</p> 
+        <p className='blog-author'>{blog.author}</p>
         <button onClick ={() => setShowAll(true)}>show</button>
       </div>
       <div style ={showWhenVisible}>
-      <p>{blog.title}</p> 
-        <p>{blog.author}</p>
+      <p className='blog-title'>{blog.title}</p> 
+        <p className='blog-author'>{blog.author}</p>
         <p>{blog.url}</p> 
         <div>
         <p>{blog.likes}</p> 
