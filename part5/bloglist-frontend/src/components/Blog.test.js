@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, getByText, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
@@ -12,6 +12,7 @@ describe('blog componenet', () => {
         likes: 18
     }
 let component;
+let mockHandler = jest.fn();
 
 beforeEach(() => {
     component = render(<Blog blog={blog}/>)
@@ -32,8 +33,23 @@ test('url and number of likes on a click', () => {
     expect(component.container).toHaveTextContent('www.18.com')
     expect(component.container).toHaveTextContent('18')
 })
+
+test('the like button is clicked twice', () => {
+    
+    const button = component.container.querySelector('.addLike')
+    fireEvent.click(button)
+
+    const likeButton = component.getByText('like')
+
+    fireEvent.click(likeButton)
+    fireEvent.click(likeButton)
+    expect(mockHandler.mock.calls).toHaveLength(2)
+})
+
     
 })
+
+
 
 
 

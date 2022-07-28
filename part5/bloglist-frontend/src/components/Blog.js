@@ -31,7 +31,7 @@ const Blog = ({blog, handleLikes, handleRemove}) => {
         <p>{blog.url}</p> 
         <div>
         <p>{blog.likes}</p> 
-        <button onClick={handleLikes}>like</button>
+        <button className='addLike' onClick={handleLikes}>like</button>
         </div>
         <button onClick ={() => setShowAll(false)}>hide</button>
         <button onClick={handleRemove}>remove</button>
