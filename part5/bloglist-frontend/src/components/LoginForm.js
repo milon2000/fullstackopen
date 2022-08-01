@@ -7,7 +7,7 @@ return (
             <h2>log in to application</h2>
             <div>
             username
-                <input 
+                <input id = 'username'
                 type = "text"
                 value = {username}
                 name = "Username"
@@ -17,13 +17,14 @@ return (
             <div>
             password
                 <input
+                id = 'password'
                 type = "password"
                 value = {password}
                 name = "Password"
                 onChange = {handlePasswordChange}
                 ></input>
             </div> 
-            <button type = "submit">login</button>
+            <button id = 'login-button' type = "submit">login</button>
         </form>
     </div>
     )   
