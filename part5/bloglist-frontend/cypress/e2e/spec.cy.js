@@ -39,4 +39,22 @@ describe('Login', function () {
     cy.contains('Wrong username or password')
   })
 
+  describe('When logged in', function () {
+    beforeEach(function () {
+      cy.login({
+        username: 'root',
+        password: '123456'
+      })
+    })
+
+    it('a new note can be created', function () {
+      cy.contains('create new blog').click()
+      cy.get('.title').type('a blog created by cypress')
+      cy.get('.author').type('an author created by cypress')
+      cy.get('.url').type('an url created by cypress')
+      cy.get('#create-blog').click()
+      cy.contains('a blog created by cypress')
+    })
+  })
+
 })
