@@ -30,7 +30,7 @@ const Blog = ({blog, handleLikes, handleRemove}) => {
         <p className='blog-author'>{blog.author}</p>
         <p>{blog.url}</p> 
         <div>
-        <p>{blog.likes}</p> 
+        <p id='likes'>{blog.likes}</p> 
         <button className='addLike' onClick={handleLikes}>like</button>
         </div>
         <button onClick ={() => setShowAll(false)}>hide</button>

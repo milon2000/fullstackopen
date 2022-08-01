@@ -47,7 +47,7 @@ describe('Login', function () {
       })
     })
 
-    it('a new note can be created', function () {
+    it('a new blog can be created', function () {
       cy.contains('create new blog').click()
       cy.get('.title').type('a blog created by cypress')
       cy.get('.author').type('an author created by cypress')
@@ -55,6 +55,17 @@ describe('Login', function () {
       cy.get('#create-blog').click()
       cy.contains('a blog created by cypress')
     })
+
+    it("check likes", function () {
+      cy.contains('a blog created by cypress');
+      cy.contains('show').click();
+      cy.get('.addLike').click();
+      cy.get('#likes').contains("1");
+      cy.get('.addLike').click();
+      cy.get('#likes').contains('2');
+    });
   })
+
+
 
 })
