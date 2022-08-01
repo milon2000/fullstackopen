@@ -64,8 +64,13 @@ describe('Login', function () {
       cy.get('.addLike').click();
       cy.get('#likes').contains('2');
     });
+
+    it('check if blog can be delated', function () {
+      cy.contains('a blog created by cypress');
+      cy.contains('show').click();
+      cy.contains('remove').click();
+      cy.get('#root').should('not.contain', 'a blog created by cypress');
+    });
   })
-
-
 
 })
