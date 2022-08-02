@@ -19,7 +19,7 @@ const Blog = ({blog, handleLikes, handleRemove}) => {
 
 
   return (
-    <div style = {blogStyle}>
+    <div className='single-blog' style = {blogStyle}>
       <div style ={hideWhenVisible}>
         <p className='blog-title'>{blog.title}</p> 
         <p className='blog-author'>{blog.author}</p>

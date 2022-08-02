@@ -71,6 +71,36 @@ describe('Login', function () {
       cy.contains('remove').click();
       cy.get('#root').should('not.contain', 'a blog created by cypress');
     });
+
+    describe('adding more blogs', function() {
+    
+      beforeEach(function() {
+        cy.addNewBlog({
+          title: 'Title20',
+          author: 'Author20',
+          url: 'url20',
+          likes: 20
+        });
+        cy.addNewBlog({
+          title: 'Title21',
+          author: 'Author21',
+          url: 'url21',
+          likes: 21
+        })
+        cy.addNewBlog({
+          title: 'Title22',
+          author: 'Author22',
+          url: 'url22',
+          likes: 22
+        })
+      })
+  
+      it('max likes', function(){
+        cy.get('.single-blog').eq(0).should('contain', 'Title22')
+        cy.get('.single-blog').eq(1).should('contain', 'Title21')
+
+    })
+    })
   })
 
 })
