@@ -17,6 +17,8 @@ const asObject = (anecdote) => {
   }
 }
 
+
+
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +35,9 @@ const reducer = (state = initialState, action) => {
       }
 
       return state.map(anecdote => anecdote.id !== id ? anecdote : changedAnecdotes)
+
+    case 'NEW_ANECDOTE':
+      return [...state, asObject(action.data)]
     default:
       return state
   }

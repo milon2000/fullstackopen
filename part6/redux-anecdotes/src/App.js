@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux'
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory'
 
 const App = () => {
   const anecdotes = useSelector(state => state)
@@ -18,6 +17,16 @@ const App = () => {
     dispatch(voteId(id))
   }
 
+  const addAnecdote = (event) => {
+    event.preventDefault()
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: event.target.anecdote.value
+    })
+    event.target.anecdote.value = ''
+  }
+
+
   return (
     <div>
       <h2>Anecdotes</h2>
@@ -33,9 +42,9 @@ const App = () => {
         </div>
       )}
       <h2>create new</h2>
-      <form>
-        <div><input /></div>
-        <button>create</button>
+      <form onSubmit = {addAnecdote}>
+        <div><input name = "anecdote"/></div>
+        <button type = "submit">create</button>
       </form>
     </div>
   )
