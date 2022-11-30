@@ -9,10 +9,6 @@ const AnecdoteForm = () => {
     event.preventDefault()
     const content = event.target.anecdote.value;
     dispatch(createAnecdote(content));
-    // dispatch({
-    //   type: 'NEW_ANECDOTE',
-    //   data: event.target.anecdote.value
-    // })
     event.target.anecdote.value = ''
   }
 

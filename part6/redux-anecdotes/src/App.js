@@ -11,8 +11,6 @@ const App = (props) => {
 
 
   const dispatch = useDispatch()
-  
-
   const voteId = (id) => {
     dispatch(vote(id))
   }
