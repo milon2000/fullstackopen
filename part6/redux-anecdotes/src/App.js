@@ -32,7 +32,7 @@ const App = (props) => {
           </div>
         </div>
       )}
-    <AnecdoteForm store = {props.store}/>
+    <AnecdoteForm/>
     </div>
   )
 }
