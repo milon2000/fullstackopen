@@ -3,11 +3,11 @@ import { vote } from '../reducers/anecdoteReducer';
 
 const AnecdoteList = () => {
 
-    const anecdotes = useSelector(state => state)
+    const anecdotes = useSelector(state => state.anecdotes)
     const anecdotesSorted = [...anecdotes].sort((a, b) => {
         return b.votes - a.votes
       })
-  
+      console.log('kurwa', anecdotesSorted);
   
     const dispatch = useDispatch()
     const voteId = (id) => {
