@@ -1,4 +1,11 @@
+import { useSelector } from 'react-redux'
+
 const Notification = () => {
+  // przeczytaj ten stan z tego reducera
+  const notification = useSelector(state => state.notifications)
+  
+  // dzieki temu mozemy uzyc kazdej akcji z reducera
+  //const dispatch = useDispatch()
   const style = {
     border: 'solid',
     padding: 10,
@@ -6,7 +13,7 @@ const Notification = () => {
   }
   return (
     <div style={style}>
-      render here notification...
+      {notification}
     </div>
   )
 }
