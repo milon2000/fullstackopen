@@ -2,7 +2,7 @@ import {
   createSlice
 } from '@reduxjs/toolkit'
 
-const initialState = [{
+/*const initialState = [{
     content: 'If it hurts, do it more often',
     votes: 0,
     id: 1
@@ -32,21 +32,24 @@ const initialState = [{
     votes: 0,
     id: 6
   }
-]
+] */
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
-  initialState,
+  initialState: [],
   reducers: {
-    createAnecdote(state, action) {
+    /*createAnecdote(state, action) {
       const content = action.payload
       state.push({
         content,
         votes: 0,
         id: getId(),
       })
+    },*/
+    createAnecdote(state, action) {
+      state.push(action.payload)
     },
 
     vote(state, action) {
@@ -59,12 +62,20 @@ const anecdoteSlice = createSlice({
       }
 
       return state.map(anecdote => anecdote.id !== id ? anecdote : changedAnecdotes)
+    },
+    appendAnecdote(state, action) {
+      state.push(action.payload)
+    },
+    setAnecdotes(state, action) {
+      state.push(action.payload)
     }
   }
 })
 
 export const {
   createAnecdote,
-  vote
+  vote,
+  appendAnecdote,
+  setAnecdotes
 } = anecdoteSlice.actions
 export default anecdoteSlice.reducer
